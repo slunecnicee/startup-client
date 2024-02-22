@@ -1,38 +1,306 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: #f5f5f5;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.open {
+  animation: opening 0.5s ease-in;
+}
+
+.close {
+  animation: closing 0.5s ease-in;
+}
+
+@keyframes opening {
+  0% {
+    right: -20%;
+  }
+
+  100% {
+    right: 0%;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@keyframes closing {
+  0% {
+    right: 0%;
+  }
+
+  100% {
+    right: -40%;
+  }
 }
 
-.App-link {
-  color: #61dafb;
+
+@media(max-width:400px) {
+  header {
+    justify-content: space-between !important;
+  }
+
+
 }
 
-@keyframes App-logo-spin {
+.show {
+  padding: 12px;
+  opacity: 1;
+  height: auto;
+  transition: opacity 0.5s ease, height 0.5s ease;
+}
+
+.hide {
+  padding: 0;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: opacity 0.5s ease, height 0.5s ease;
+
+}
+
+
+.active {
+  color: #4682b4;
+  text-decoration: underline;
+  text-underline-offset: 8px;
+
+}
+
+
+.t {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+
+.lb {
+  position: absolute;
+  top: 0;
+  transform: translateY(-55%);
+  z-index: 2;
+  background-color: white;
+}
+
+.lm {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  transform: translateY(-55%);
+  z-index: 2;
+  background-color: white;
+}
+
+
+.b {
+  bottom: -20px;
+}
+
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+
+}
+
+
+
+
+.fill {
+  position: absolute;
+  top: 0;
+  left: 10.5px;
+  border-radius: 2px;
+  width: 3px;
+  height: 100%;
+  /* Ensures the div covers the entire height */
+  background-color: #9f9e9e;
+  /* Gray background color */
+  overflow: hidden;
+  /* Hides overflowing green color */
+
+}
+
+.fill::after {
+  content: "";
+  position: absolute;
+  border-radius: 2px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--filledPercentage, 0%);
+  background-color: rgb(34 197 94);
+  /* Green fill color */
+  transition: height 0.5s ease;
+  /* Smooth transition for height change */
+}
+
+
+.title {
+  position: relative;
+
+}
+
+
+.title::before {
+  width: 100%;
+  height: 1px;
+  background-color: #9f9e9e;
+  border-radius: 1px;
+  position: absolute;
+  content: '';
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: -1;
+}
+
+.title2 {
+  position: relative;
+
+}
+
+
+.title2::before {
+  width: 97%;
+  height: 1px;
+  background-color: #9f9e9e;
+  border-radius: 1px;
+  position: absolute;
+  content: '';
+  top: 50%;
+  transform: translateY(-50%);
+
+}
+
+
+
+
+
+/* .gradient-bg {
+  background: linear-gradient(95deg,
+      #EF4444 0%,
+    
+      #FBBF24 25%,
+   
+      rgb(244, 233, 25)50%,
+ 
+      rgba(157, 236, 37, 0.994) 75%,
+
+      rgb(111, 186, 230) 100%
+    
+    );
+  -webkit-background-clip: text;
+
+  background-clip: text;
+  color: transparent;
+} */
+
+
+
+@media (max-width: 639px) {
+  .title::before {
+    display: none;
+  }
+}
+
+
+
+.imageheight {
+  height: 400px;
+}
+
+
+
+@media(max-width:340px) {
+  .custom-padding {
+    padding: 8px;
+  }
+}
+
+
+@media(max-width:400px) {
+  .custom-padding {
+    padding: 12px;
+  }
+}
+
+@media(max-width:470px) {
+  .custom-padding {
+    padding: 20px;
+  }
+}
+
+@media(max-width:500px) {
+  .custom-padding {
+    padding: 30px;
+  }
+}
+
+@media(max-width:550px) {
+  .custom-padding {
+    padding: 50px;
+  }
+}
+
+@media(max-width:639px) {
+  .custom-padding {
+    padding: 65px;
+  }
+}
+
+
+
+@media(max-width:458px) {
+  .custom-padding2 {
+    padding: 10px;
+  }
+}
+
+
+
+.slick-prev, .slick-next {
+  display: none !important
+}
+
+
+.left {
+  left: -5px;
+}
+
+.right {
+  right: -5px;
+}
+
+
+.fade-in {
+  animation: fade-in 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.fade-out {
+  animation: fade-out 0.5s ease;
+  transition: all 0.3s ease;
+}
+
+
+@keyframes fade-in {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
   }
+
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
   }
 }
