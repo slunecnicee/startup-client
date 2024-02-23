@@ -122,6 +122,16 @@ const FormPgFive = ({
     const updatedMembers = [...members];
     updatedMembers.push(member);
     setFieldValue("members", updatedMembers);
+    setmember({
+      name: "",
+      lastname: "",
+      email: "",
+      position: "",
+      phone: "",
+      idnumber: "",
+      birthday: "",
+      linkedin: "",
+    });
   };
 
   return (

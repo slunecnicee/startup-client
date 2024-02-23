@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { useFormikContext } from "formik";
 
-const FormValid = ({ isUsaid, isGroup, isNew, errorsPg5, member }) => {
+const FormValid = ({ isUsaid, isGroup, isNew }) => {
   const { values, errors } = useFormikContext();
 
   const [filledPercentages, setFilledPercentages] = useState({
@@ -10,14 +10,9 @@ const FormValid = ({ isUsaid, isGroup, isNew, errorsPg5, member }) => {
     pg2: 0,
     pg3: 0,
     pg4: 0,
-    pg5: 0,
   });
 
   const fillRefs = useRef([null, null, null, null]);
-
-  const isEmpty = Object.values(errorsPg5).every((value) => value === "");
-
-  console.log(isEmpty, errorsPg5, "formvalidPg");
 
   useEffect(() => {
     const calculateFilledPercentage = (fieldValues, totalCount) => {
@@ -36,7 +31,7 @@ const FormValid = ({ isUsaid, isGroup, isNew, errorsPg5, member }) => {
         } else if (Array.isArray(value)) {
           count += value
             .filter((item) => typeof item === "object")
-            .reduce((acc, item) => countFilledFields(item), 0);
+            .reduce((_acc, item) => countFilledFields(item), 0);
         } else {
           count += value ? 1 : 0;
         }
@@ -60,18 +55,14 @@ const FormValid = ({ isUsaid, isGroup, isNew, errorsPg5, member }) => {
       values.descriptions,
       2
     );
-    const filledPercentagePg5 = isGroup
-      ? (countFilledFields(member) / 8) * 100
-      : 100;
 
     setFilledPercentages({
       pg1: filledPercentagePg1,
       pg2: filledPercentagePg2,
       pg3: filledPercentagePg3,
       pg4: filledPercentagePg4,
-      pg5: filledPercentagePg5,
     });
-  }, [values, isNew, isUsaid, isGroup, member]);
+  }, [values, isNew, isUsaid, isGroup]);
 
   useEffect(() => {
     fillRefs.current.forEach((ref, index) => {
@@ -146,12 +137,12 @@ const FormValid = ({ isUsaid, isGroup, isNew, errorsPg5, member }) => {
           <div className="flex gap-2 items-end relative">
             <span
               className={
-                filledPercentages.pg5 === 100 && isEmpty
+                values.members.length > 0
                   ? "w-6 h-6 z-20 flex items-center justify-center text-xs rounded-full bg-green-500 text-white transition-all duration-200 ease-in-out"
                   : "w-6 h-6 z-20 flex items-center justify-center text-xs rounded-full bg-gray-300 text-gray-500 transition-all duration-200 ease-in-out"
               }
             >
-              {filledPercentages.pg5 === 100 && isEmpty ? "\u2713" : "5"}
+              {values.members.length > 0 ? "\u2713" : "5"}
             </span>
             <p className="font-bold text-sm">ჯგუფის წევრების დამატება</p>
           </div>

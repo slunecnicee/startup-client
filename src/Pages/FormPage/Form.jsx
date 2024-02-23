@@ -103,9 +103,15 @@ const CommonForm = ({ isUsaid }) => {
       <Formik
         initialValues={values}
         validationSchema={validationSchema}
-        onSubmit={({ values }) => {
+        onSubmit={(values, { resetForm }) => {
           console.log(values);
-          handleImageUpload(values.descriptions.file).then((downloadURL) => {
+          let fileUploadPromise;
+          if (values.descriptions.file) {
+            fileUploadPromise = handleImageUpload(values.descriptions.file);
+          } else {
+            fileUploadPromise = Promise.resolve(null); // Resolve immediately with null if no file
+          }
+          fileUploadPromise.then((downloadURL) => {
             return baseAPI
               .post("/send/application", {
                 isNew,
@@ -131,9 +137,9 @@ const CommonForm = ({ isUsaid }) => {
                   entityBday: values.project.entityBday,
                 },
                 budjet: {
-                  budjectFromStartupGeorgia:
-                    values.budjet.budjectFromStartupGeorgia,
-                  budjectFromUsaid: values.budjet.budjectFromUsaid,
+                  budjetFromStartupGeorgia:
+                    values.budjet.budjetFromStartupGeorgia,
+                  budjetFromUsaid: values.budjet.budjetFromUsaid,
                   authorBudjet: values.budjet.authorBudjet,
                   existentBudjet: values.budjet.existentBudjet,
                   totalBudjet: values.budjet.totalBudjet,
@@ -145,7 +151,23 @@ const CommonForm = ({ isUsaid }) => {
                 },
                 members: values.members,
               })
-              .then((res) => console.log(res.data))
+              .then((res) => {
+                if (res.status === 200) {
+                  resetForm();
+                  setCurrentPage(0);
+                  setmember({
+                    name: "",
+                    lastname: "",
+                    email: "",
+                    position: "",
+                    phone: "",
+                    idnumber: "",
+                    birthday: "",
+                    linkedin: "",
+                  });
+                  alert("application sent successfully");
+                }
+              })
               .catch((err) => console.log(err));
           });
         }}
