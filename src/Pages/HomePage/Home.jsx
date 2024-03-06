@@ -1,42 +1,49 @@
-import CommonBtn from "../../Components/commonBtn";
 import VideoCont from "./Components/video";
-import ChatIcon from "@mui/icons-material/Chat";
-import PhoneCallbackIcon from "@mui/icons-material/PhoneCallback";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
 import NewsSlider from "./Components/NewsSlider";
 import { useNavigate } from "react-router-dom";
+import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
+import InsightsIcon from "@mui/icons-material/Insights";
+import SchoolIcon from "@mui/icons-material/School";
+import PaymentsIcon from "@mui/icons-material/Payments";
 
 const HomePage = () => {
   const navigate = useNavigate();
   return (
-    <main className="min-h-screen bg-neutral-100 mt-10">
+    <main className="min-h-screen bg-neutral-100 ">
       <VideoCont />
+      <div className="w-full bg-white p-4 py-10 flex gap-5 mt-10 ">
+        <div className="flex gap-8 text-gray-400 text-xl font-bold items-center p-3 w-1/2 justify-center ">
+          <SignalCellularAltIcon
+            sx={{ color: "lightgray", fontSize: "120px" }}
+          />
+          <h2>2800+ შემოსული პროექტი </h2>
+        </div>
 
-      <div className="w-full h-fit p-5 flex flex-col md:flex-row items-center justify-center gap-3 lg:gap-24 mr-10">
-        <CommonBtn
-          text=" შეავსე განაცხადი"
-          icon={<BorderColorIcon sx={{ color: "red" }} />}
-          handleNavigate={() => navigate("/application")}
-        />
-        <CommonBtn
-          text="მოითხოვე ზარი"
-          icon={<PhoneCallbackIcon sx={{ color: "red" }} />}
-        />
-        <CommonBtn
-          text="მოგვწერე მეილი "
-          icon={<ChatIcon sx={{ color: "red" }} />}
-          handleNavigate={() => navigate("/contact")}
-        />
+        <div className="flex gap-8 text text-gray-400 text-xl w-1/2 font-bold items-center p-3 justify-center">
+          <InsightsIcon sx={{ color: "lightgray", fontSize: "120px" }} />
+          <h2> 93+ გამრჯვებული პროექტები </h2>
+        </div>
+      </div>
+      <div className="w-full bg-white p-4 py-10 flex gap-5 ">
+        <div className="flex gap-8 text-gray-400 text-xl font-bold items-center p-3 w-1/2 justify-center ">
+          <SchoolIcon sx={{ color: "lightgray", fontSize: "120px" }} />
+          <h2>პროფესიული ტრენინგები </h2>
+        </div>
+
+        <div className="flex gap-8 text text-gray-400 text-xl w-1/2 font-bold items-center p-3 justify-center">
+          <PaymentsIcon sx={{ color: "lightgray", fontSize: "120px" }} />
+          <h2> 100,000 ლარამდე დაფინანსება </h2>
+        </div>
       </div>
 
       <NewsSlider />
 
-      <div className="p-10 md:pb-16 md:pt-16 bg-textColor mt-14 flex flex-col md:flex-row justify-center items-center">
+      <div className="p-10 md:pb-16 md:pt-16 bg-neutral-100 mt-24 flex flex-col md:flex-row justify-center items-center mb-20">
         <div
           onClick={() => navigate("/winners")}
           className="w-full md:w-1/2 flex flex-col justify-center pb-5 md:pb-0 items-center gap-5 border-b-2 md:border-b-0 md:border-r-2 border-gray-300 rounded-sm"
         >
-          <h2 className="text-base sm:text-2xl lg:text-3xl text-white">
+          <h2 className="text-base sm:text-2xl lg:text-3xl text-textColor">
             გამარჯვებული პროექტები
           </h2>
           <figure>
@@ -45,22 +52,13 @@ const HomePage = () => {
         </div>
 
         <div className=" w-full md:w-1/2 pt-5 md:pt-0  flex flex-col justify-center items-center gap-5">
-          <h2 className="text-base sm:text-2xl lg:text-3xl text-white">
+          <h2 className="text-base sm:text-2xl lg:text-3xl text-textColor">
             პრიორიტეტული დარგები
           </h2>
           <figure>
             <img src="/icon_14.png" alt="" />
           </figure>
         </div>
-      </div>
-
-      <div className="mt-10  p-1 sm:p-3 w-full mb-10 flex justify-center">
-        <CommonBtn
-          text="შემოსული პროექტები 2800 გამრჯვებული პროექტები 93 "
-          color="font-medium "
-          borderColor="sm:text-base text-sm lg:text-xl"
-          bg="sm:p-5 pl-0 border-r-0 border-l-0 border-t-0 border-b-2 rounded-sm"
-        />
       </div>
     </main>
   );

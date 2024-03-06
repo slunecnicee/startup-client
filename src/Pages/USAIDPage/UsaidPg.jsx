@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import DescriptionIcon from "@mui/icons-material/Description";
 const UsaidPg = () => {
   const navigate = useNavigate();
 
@@ -8,6 +9,13 @@ const UsaidPg = () => {
 
   return (
     <>
+      <button
+        onClick={handlenavigate}
+        className="p-3 mt-10 pl-5 pr-5 hover:opacity-90   md:m-10 flex items-center gap-3 border-none  text-textColor font-bold text-xl"
+      >
+        <DescriptionIcon sx={{ color: "#4682b4", fontSize: "30px" }} />
+        განაცხადის შევსება
+      </button>
       <div className="w-full p-3 ">
         <div className="title mb-5 md:mb-0 border-b sm:border-none pb-2 md:pb-0 flex justify-start md:justify-center items-center md:m-3 md:ml-10 mr-10">
           <h2 className=" text-md font-bold  sm:text-lg  md:text-2xl text-textColor w-fit sm:pl-2 pr-2 bg-neutral-100 sm:font-medium  ">
@@ -187,14 +195,6 @@ const UsaidPg = () => {
           </a>
         </p>
       </div>
-
-      <button
-        onClick={handlenavigate}
-        className="p-3 pl-5 pr-5 hover:opacity-90  m-2 md:m-10 flex items-center border-none rounded-full bg-textColor text-white font-bold text-xl"
-      >
-        <img src="/form.png" alt="form_icon" />
-        განაცხადის შევსება
-      </button>
     </>
   );
 };

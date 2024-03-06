@@ -45,7 +45,7 @@ const Header = () => {
       className={`fixed flex items-center pl-8 justify-between top-0 left-0 w-full z-50 transition-colors duration-300 ease-in-out p-2 ${
         scrolled
           ? "bg-neutral-100 text-textColor "
-          : "bg-headerColor shadow-lg text-white"
+          : "bg-headerColor  text-white"
       }`}
     >
       <NavLink to="/">

@@ -11,6 +11,7 @@ import { baseAPI } from "../../services/baseApi";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "./services/firebase";
 import { v4 } from "uuid";
+import DownloadIcon from "@mui/icons-material/Download";
 
 const handleImageUpload = (file) => {
   const fileRef = ref(storage, `applications/${file.name + v4()}`);
@@ -96,10 +97,19 @@ const CommonForm = ({ isUsaid }) => {
   ];
 
   return (
-    <main className="w-full min-h-screen p-2  lg:p-8 xl:p-2 flex flex-col ">
-      <h2 className="lg:mt-10 mb-3  lg:w-4/5 lg:self-center p-5 text-2xl text-textColor">
-        შეავსე განაცხადი
-      </h2>
+    <main className="w-full min-h-screen p-2  lg:p-8 xl:p-2 flex flex-col  ">
+      <div className="lg:mt-10 mb-3  lg:w-4/5 lg:self-center p-5 text-2xl text-textColor flex items-center justify-between">
+        <h2>შეავსე განაცხადი</h2>
+        <div className="text-sm flex gap-5 items-center ">
+          <p className=" hover:underline cursor-pointer">
+            <DownloadIcon sx={{ fontSize: "20px" }} /> ბიზნეს ფორმა
+          </p>
+          <p className=" hover:underline cursor-pointer">
+            <DownloadIcon sx={{ fontSize: "20px" }} />
+            ფინანსური მოდელის ფორმა
+          </p>
+        </div>
+      </div>
       <Formik
         initialValues={values}
         validationSchema={validationSchema}

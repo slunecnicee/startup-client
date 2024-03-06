@@ -12,7 +12,7 @@ import { useFormikContext } from "formik";
 
 const FormPgTwo = ({ nextPage, prevPage, setIsNew, isNew }) => {
   const [isValid, setIsValid] = useState(true);
-  const { errors, values } = useFormikContext();
+  const { errors, values, setFieldValue } = useFormikContext();
 
   useEffect(() => {
     if (
@@ -46,6 +46,7 @@ const FormPgTwo = ({ nextPage, prevPage, setIsNew, isNew }) => {
           options={industries}
           name="project.industry"
           htmlFor={"project.industry"}
+          setFieldValue={setFieldValue}
         />
       </div>
       <div className="flex flex-col border-b-2 border-gray-300 pb-6 ">
@@ -56,12 +57,14 @@ const FormPgTwo = ({ nextPage, prevPage, setIsNew, isNew }) => {
             options={regions}
             name="project.region"
             htmlFor={"project.region"}
+            setFieldValue={setFieldValue}
           />
           <CommonSelect
             label={"მუნიციპალიტეტი"}
             options={munisipalities}
             name="project.municipality"
             htmlFor={"project.municipality"}
+            setFieldValue={setFieldValue}
           />
 
           <CommonSelect
@@ -69,6 +72,7 @@ const FormPgTwo = ({ nextPage, prevPage, setIsNew, isNew }) => {
             options={villages}
             name="project.village"
             htmlFor={"project.village"}
+            setFieldValue={setFieldValue}
           />
         </div>
       </div>

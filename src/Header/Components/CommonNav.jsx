@@ -12,7 +12,7 @@ const CommonNav = () => {
         </li>
         <li className=" whitespace-nowrap w-full pb-2 cursor-pointer ">
           <NavLink to={"/usaid"} activeClassName="active">
-            USID ზრდა
+            USID-CNFA
           </NavLink>
         </li>
         <li className=" whitespace-nowrap w-full pb-2 cursor-pointer">
@@ -28,11 +28,6 @@ const CommonNav = () => {
         <li className="sm:whitespace-nowrap w-full pb-2 cursor-pointer ">
           <NavLink to={"/terms"} activeClassName="active">
             მონაწილეობის პირობები
-          </NavLink>
-        </li>
-        <li className=" whitespace-nowrap w-full pb-2 cursor-pointer">
-          <NavLink to="/offer" activeClassName="active">
-            ჩვენ გთავაზობთ
           </NavLink>
         </li>
         <li className=" whitespace-nowrap w-full pb-2 cursor-pointer">
