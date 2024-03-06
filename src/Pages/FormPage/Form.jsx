@@ -70,6 +70,7 @@ const CommonForm = ({ isUsaid }) => {
   const validationSchema = validations(isNew, isUsaid);
   const nextPage = () => setCurrentPage(currentPage + 1);
   const prevPage = () => setCurrentPage(currentPage - 1);
+  console.log(isNew);
 
   const pages = [
     <FormPgOne nextPage={nextPage} />,
@@ -183,6 +184,8 @@ const CommonForm = ({ isUsaid }) => {
         }}
       >
         {(obj) => {
+          const { errors } = obj;
+          console.log(errors);
           return (
             <article className="w-full  bg-white xl:w-4/5 h-auto p-2 shadow-sm  flex gap-2 self-center rounded-sm">
               <FormValid

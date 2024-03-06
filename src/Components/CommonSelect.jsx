@@ -63,7 +63,7 @@ const CommonSelect = ({ options, htmlFor, label, name, setFieldValue }) => {
           ))}
         </ul>
       )}
-      <p className="text-red-500 absolute ml-5 b text-xs mt-1">
+      <p className="text-red-500 absolute ml-1 b text-xs mt-1 whitespace-nowrap">
         <ErrorMessage name={name} />
       </p>
     </div>

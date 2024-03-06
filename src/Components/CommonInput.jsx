@@ -38,7 +38,7 @@ const CommonInput = ({
         }`}
       />
 
-      <p className="text-red-500 text-xs absolute b mt-1 ml-5">
+      <p className="text-red-500 text-xs absolute b mt-1 ml-1 whitespace-nowrap">
         <ErrorMessage name={name} />
       </p>
     </div>

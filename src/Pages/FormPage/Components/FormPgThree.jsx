@@ -39,22 +39,10 @@ const FormPgThree = ({ prevPage, nextPage, isUsaid }) => {
 
       <p className="text-xs font-bold text-gray-500">
         <span className="text-red-500 text-sm ">!</span> პროექტის მთლიანი
-        ბიუჯეტის ზედა ზღვარი არ არის შეზღუდული, ქვედა ზღვარი შეადგენს 16,667
+        ბიუჯეტის ზედა ზღვარი არ არის შეზღუდული, ქვედა ზღვარი შეადგენს 15,000
         ლარს
       </p>
 
-      <CommonInput
-        type="number"
-        name="budjet.authorBudjet"
-        label="ავტორის ფულადი მონაწილეობა"
-        ph="მაგ: 10 000 "
-        width={true}
-        htmlfor={"authorBudjet"}
-      />
-      <p className="text-xs font-bold text-gray-500">
-        <span className="text-red-500 text-sm ">!</span> ფულადი თანამონაწილეობა
-        უნდა შეადგენდეს პროექტის ჯამური ფულადი ბიუჯეტის სულ მცირე 10%-ს
-      </p>
       <CommonInput
         type="number"
         name="budjet.existentBudjet"
@@ -69,6 +57,32 @@ const FormPgThree = ({ prevPage, nextPage, isUsaid }) => {
         აქვს კაპიტალში შეიტანოს დამატებითი არაფულადი აქტივი
       </p>
 
+      <CommonInput
+        type="number"
+        name="budjet.totalBudjet"
+        label="პროექტის ჯამური ფულადი ბიუჯეტი"
+        ph="მაგ: 100 000 ლარი"
+        width={true}
+        htmlFor={"totalBudjet"}
+      />
+      <p className="text-xs font-bold text-gray-500 ">
+        <span className="text-red-500 text-sm ">!</span> თანადაფინანსების
+        ოდენობა შეადგენს 15,000 ლარიდან 100,000 ლარამდე
+      </p>
+
+      <CommonInput
+        type="number"
+        name="budjet.authorBudjet"
+        label="ავტორის ფულადი მონაწილეობა"
+        ph="მაგ: 10 000 "
+        width={true}
+        htmlfor={"authorBudjet"}
+      />
+      <p className="text-xs font-bold text-gray-500">
+        <span className="text-red-500 text-sm ">!</span> ფულადი თანამონაწილეობა
+        უნდა შეადგენდეს პროექტის ჯამური ფულადი ბიუჯეტის სულ მცირე 10%-ს
+      </p>
+
       {isUsaid && (
         <CommonInput
           type="number"
@@ -79,20 +93,8 @@ const FormPgThree = ({ prevPage, nextPage, isUsaid }) => {
           width={true}
         />
       )}
-      <CommonInput
-        type="number"
-        name="budjet.totalBudjet"
-        label="პროექტის ჯამური ფულადი ბიუჯეტი"
-        ph="მაგ: 100 000 ლარი"
-        width={true}
-        htmlFor={"totalBudjet"}
-      />
-      <p className="text-xs font-bold text-gray-500 border-b-2 border-gray-300 pb-5 rounded-sm">
-        <span className="text-red-500 text-sm ">!</span> თანადაფინანსების
-        ოდენობა შეადგენს 15,000 ლარიდან 100,000 ლარამდე
-      </p>
 
-      <div className="flex w-full justify-between items-center p-2 pt-4">
+      <div className="flex w-full justify-between items-center p-2  border-t-2 border-gray-300 pt-5 rounded-sm">
         <CommonFormBtn text="უკან" handleClick={prevPage} disabled={false} />
 
         <CommonFormBtn
