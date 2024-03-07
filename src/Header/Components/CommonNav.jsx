@@ -12,7 +12,7 @@ const CommonNav = () => {
         </li>
         <li className=" whitespace-nowrap w-full pb-2 cursor-pointer ">
           <NavLink to={"/usaid"} activeClassName="active">
-            USID-CNFA
+            USAID-CNFA
           </NavLink>
         </li>
         <li className=" whitespace-nowrap w-full pb-2 cursor-pointer">
