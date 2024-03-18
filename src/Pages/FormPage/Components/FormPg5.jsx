@@ -12,7 +12,7 @@ const FormPgFive = ({
   errors,
   setErrors,
   member,
-  setmember,
+  setMember,
 }) => {
   const { values, setFieldValue } = useFormikContext();
   const members = values.members;
@@ -37,7 +37,7 @@ const FormPgFive = ({
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setmember({
+    setMember({
       ...member,
       [name]: value,
     });
@@ -122,7 +122,7 @@ const FormPgFive = ({
     const updatedMembers = [...members];
     updatedMembers.push(member);
     setFieldValue("members", updatedMembers);
-    setmember({
+    setMember({
       name: "",
       lastname: "",
       email: "",

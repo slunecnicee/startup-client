@@ -26,39 +26,53 @@ const FormPgOne = ({ nextPage }) => {
 
   return (
     <div className="flex flex-col gap-1">
-      <div className="w-full flex-col xl:flex-row flex xl:gap-3 gap-6  ">
+
+<div className="w-full mb-5 mt-5 flex-col xl:flex-row xl:mt-5  flex xl:gap-3 gap-6 pr-56">
+<CommonInput
+          name="person.idNumber"
+          label="პირადი ნომერი"
+          type="text"
+          htmlfor={"idNumber"}
+          width={true}
+          
+        />
+</div>
+
+
+      <div className="w-full flex-col xl:flex-row flex xl:gap-3  gap-6  ">
         <CommonInput
           name="person.name"
           type="text"
           label="სახელი"
           htmlfor={"name"}
+          bottom={true}
+          width={true}
         />
         <CommonInput
           name="person.lastName"
           type="text"
           label="გვარი"
           htmlfor={"lastName"}
+          bottom={true}
+          width={true}
         />
       </div>
 
-      <div className="w-full mb-5 mt-5 flex-col xl:flex-row xl:mt-5  flex xl:gap-3 gap-6">
-        <CommonInput
-          name="person.idNumber"
-          label="პირადი ნომერი"
-          type="text"
-          htmlfor={"idNumber"}
-        />
+      <div className="w-full mb-2 mt-5 flex-col xl:flex-row xl:mt-5  flex xl:gap-3 gap-6">
+     
         <CommonInput
           name="person.address"
           type="text"
           label="ფაქტობრივი მისამართი"
           htmlfor={"address"}
+          width={true}
         />
         <CommonInput
           name="person.birthDate"
           label="დაბადების თარიღი"
           type="date"
           htmlfor={"birthDate"}
+          width={true}
         />
       </div>
 
@@ -75,13 +89,16 @@ const FormPgOne = ({ nextPage }) => {
             label="მობილურის ნომერი"
             htmlfor={"phone"}
             span={true}
+            width={true}
           />
+         
 
           <CommonInput
             name="person.email"
             label="ელ-ფოსტა"
             type="email"
             htmlfor={"email"}
+            width={true}
           />
         </div>
       </div>

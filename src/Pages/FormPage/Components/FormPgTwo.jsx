@@ -34,12 +34,13 @@ const FormPgTwo = ({ nextPage, prevPage, setIsNew, isNew }) => {
 
   return (
     <>
-      <div className="flex flex-col xl:flex-row border-b-2 border-gray-300 pb-6 items-end gap-8 mt-5">
+      <div className="flex flex-col xl:flex-row  border-b-2 border-gray-300 pb-6  gap-8 mt-5">
         <CommonInput
           label={"პროექტის სახელი"}
           name="project.name"
           type="text"
           htmlfor={"project.name"}
+          width={true}
         />
         <CommonSelect
           label={"აირჩიე ინდუსტრია"}
@@ -47,6 +48,7 @@ const FormPgTwo = ({ nextPage, prevPage, setIsNew, isNew }) => {
           name="project.industry"
           htmlFor={"project.industry"}
           setFieldValue={setFieldValue}
+          width={true}
         />
       </div>
       <div className="flex flex-col border-b-2 border-gray-300 pb-6 ">
@@ -149,3 +151,12 @@ const FormPgTwo = ({ nextPage, prevPage, setIsNew, isNew }) => {
 };
 
 export default FormPgTwo;
+
+
+
+
+
+
+
+
+

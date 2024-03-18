@@ -8,7 +8,8 @@ const CommonInput = ({
   min,
   htmlfor,
   span,
-  value,
+  bottom, 
+ 
 }) => {
   return (
     <div
@@ -22,6 +23,7 @@ const CommonInput = ({
           className="font-bold  text-sm text-gray-600 lb ml-5 p-1"
         >
           {label}
+
         </label>
       )}
 
@@ -33,14 +35,13 @@ const CommonInput = ({
         name={name}
         id={htmlfor}
         min={min}
-        className={`p-3 border rounded-md border-gray-300 focus:outline-emerald-600 focus-within:bg-white  focus:bg-white ${
-          span ? "pl-16" : ""
-        }`}
+        className={`p-3 border rounded-md  border-gray-300 focus:outline-emerald-600 focus-within:bg-white focus:bg-white ${span ? "pl-16" : ""} `}
+
       />
 
-      <p className="text-red-500 text-xs absolute b mt-1 ml-1 whitespace-nowrap">
-        <ErrorMessage name={name} />
-      </p>
+   
+        <ErrorMessage name={name} component="div" className="text-red-500 text-xs  mt-1 ml-1 h-fit" />
+    
     </div>
   );
 };

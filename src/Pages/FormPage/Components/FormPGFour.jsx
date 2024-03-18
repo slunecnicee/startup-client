@@ -68,7 +68,7 @@ const FormPgFour = ({ nextPage, prevPage, isGroup, setIsGroup }) => {
 
       <div className=" border-b-2 pb-4 rounded-sm border-gray-300 relative mt-8 flex flex-col gap-2">
         <label
-          htmlFor="file"
+          htmlFor="files"
           className="font-bold text-sm text-gray-600 lm ml-5 p-1"
         >
           ატვირთე ფაილი
@@ -76,10 +76,11 @@ const FormPgFour = ({ nextPage, prevPage, isGroup, setIsGroup }) => {
         <input
           className=" border cursor-pointer rounded-md w-full border-gray-300 p-2 focus:outline-green-300 focus-within:bg-white focus:bg-white "
           type="file"
-          id="file"
-          name="descriptions.file"
+          multiple
+          id="files"
+          name="descriptions.files"
           onChange={(e) => {
-            setFieldValue("descriptions.file", e.target.files[0]);
+            setFieldValue("descriptions.files", e.target.files);
           }}
         />
       </div>

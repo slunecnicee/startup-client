@@ -6,13 +6,13 @@ export const validations = (isNew, isUsaid) => {
       name: Yup.string()
         .required("სახელი აუცილებელია")
         .matches(
-          /^[^!@#$%^&*()_+={}[\]|\\:;"'<,>.?/~`]*$/,
+          /^[^\W\d_]+$/i,
           "სახელში ციფრები და სპეციალური სიმბოლოები  არ შეიძლება"
         ),
       lastName: Yup.string()
         .required("გვარი აუცილებელია")
         .matches(
-          /^[^!@#$%^&*()_+={}[\]|\\:;"'<,>.?/~`]*$/,
+          /^[^\W\d_]+$/i,
           "გვარში ციფრები და სპეციალური სიმბოლოები  არ შეიძლება"
         ),
       address: Yup.string().required("მისამართი აუცილებელია"),
@@ -93,10 +93,10 @@ export const validations = (isNew, isUsaid) => {
         : Yup.number().notRequired(),
       authorBudjet: Yup.number()
         .typeError("შეიყვანეთ რიცხვები.")
-        .min(
-          Yup.ref("totalBudjet") * 0.1,
-          "ავტორის ფულადი მონაწილეობა უნდა იყოს მინიმუმ 10% მთელი ბიუჯეტისა"
-        )
+        // .min(
+        //   Yup.ref("totalBudjet") * 0.1,
+        //   "ავტორის ფულადი მონაწილეობა უნდა იყოს მინიმუმ 10% მთელი ბიუჯეტისა"
+        // )
         .required("required"),
     }),
     descriptions: Yup.object().shape({

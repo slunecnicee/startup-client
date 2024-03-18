@@ -1,3 +1,4 @@
+
 import FormPgFour from "./Components/FormPGFour";
 import FormPgOne from "./Components/FormPgOne";
 import FormPgThree from "./Components/FormPgThree";
@@ -8,17 +9,24 @@ import { useState } from "react";
 import { Formik, Form } from "formik";
 import { validations } from "./services/validations";
 import { baseAPI } from "../../services/baseApi";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes } from "firebase/storage"; // Removed getDownloadURL import
 import { storage } from "./services/firebase";
 import { v4 } from "uuid";
 import DownloadIcon from "@mui/icons-material/Download";
 
-const handleImageUpload = (file) => {
-  const fileRef = ref(storage, `applications/${file.name + v4()}`);
-  return uploadBytes(fileRef, file).then(() => getDownloadURL(fileRef));
+const handleImageUpload = (files) => {
+  const uploadPromises = Object.entries(files).map((file) => {
+    const fileRef = ref(storage, `applications/${file.name + v4()}`);
+    return uploadBytes(fileRef, file).then(() => {
+      const downloadURL = `https://your-bucket-name.storage.googleapis.com/applications/${file.name + v4()}`;
+      return downloadURL;
+    });
+  });
+  return Promise.all(uploadPromises);
 };
 
-const values = {
+// Your initial form values
+const initialValues = {
   person: {
     name: "",
     lastName: "",
@@ -47,7 +55,7 @@ const values = {
   descriptions: {
     projectDesc: "",
     inovationDesc: "",
-    file: null,
+    files: [], 
   },
   members: [],
 };
@@ -57,7 +65,7 @@ const CommonForm = ({ isUsaid }) => {
   const [isGroup, setIsGroup] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [errors, setErrors] = useState({});
-  const [member, setmember] = useState({
+  const [member, setMember] = useState({
     name: "",
     lastname: "",
     email: "",
@@ -67,10 +75,12 @@ const CommonForm = ({ isUsaid }) => {
     birthday: "",
     linkedin: "",
   });
+
+  // Define validation schema
   const validationSchema = validations(isNew, isUsaid);
+
   const nextPage = () => setCurrentPage(currentPage + 1);
   const prevPage = () => setCurrentPage(currentPage - 1);
-  console.log(isNew);
 
   const pages = [
     <FormPgOne nextPage={nextPage} />,
@@ -89,7 +99,7 @@ const CommonForm = ({ isUsaid }) => {
     />,
     <FormPgFive
       prevPage={prevPage}
-      setmember={setmember}
+      setMember={setMember} // Changed to setMember
       isGroup={isGroup}
       member={member}
       errors={errors}
@@ -112,80 +122,74 @@ const CommonForm = ({ isUsaid }) => {
         </div>
       </div>
       <Formik
-        initialValues={values}
+        initialValues={initialValues} // Use the defined initial values
         validationSchema={validationSchema}
         onSubmit={(values, { resetForm }) => {
-          console.log(values);
+       
           let fileUploadPromise;
-          if (values.descriptions.file) {
-            fileUploadPromise = handleImageUpload(values.descriptions.file);
+          if (values.descriptions.files) {
+            fileUploadPromise = handleImageUpload(values.descriptions.files);
           } else {
             fileUploadPromise = Promise.resolve(null); // Resolve immediately with null if no file
           }
-          fileUploadPromise.then((downloadURL) => {
-            return baseAPI
-              .post("/send/application", {
-                isNew,
-                isUsaid,
-                hasAgreed: true,
-                person: {
-                  name: values.person.name,
-                  lastName: values.person.lastName,
-                  email: values.person.email,
-                  phone: values.person.phone,
-                  idNumber: values.person.idNumber,
-                  birthDate: values.person.birthDate,
-                  address: values.person.address,
-                },
-                project: {
-                  name: values.project.name,
-                  industry: values.project.industry,
-                  region: values.project.region,
-                  municipality: values.project.municipality,
-                  village: values.project.village,
-                  entityIdentificationCode:
-                    values.project.entityIdentificationCode,
-                  entityBday: values.project.entityBday,
-                },
-                budjet: {
-                  budjetFromStartupGeorgia:
-                    values.budjet.budjetFromStartupGeorgia,
-                  budjetFromUsaid: values.budjet.budjetFromUsaid,
-                  authorBudjet: values.budjet.authorBudjet,
-                  existentBudjet: values.budjet.existentBudjet,
-                  totalBudjet: values.budjet.totalBudjet,
-                },
-                descriptions: {
-                  projectDesc: values.descriptions.projectDesc,
-                  inovationDesc: values.descriptions.inovationDesc,
-                  files: downloadURL,
-                },
-                members: values.members,
-              })
-              .then((res) => {
-                if (res.status === 200) {
-                  resetForm();
-                  setCurrentPage(0);
-                  setmember({
-                    name: "",
-                    lastname: "",
-                    email: "",
-                    position: "",
-                    phone: "",
-                    idnumber: "",
-                    birthday: "",
-                    linkedin: "",
-                  });
-                  alert("application sent successfully");
-                }
-              })
-              .catch((err) => console.log(err));
+          fileUploadPromise.then((downloadURLs) => {
+            const formData={
+              isNew: isNew,
+  isUsaid: isUsaid,
+  hasAgreed: true,
+  applicantName: values.person.name,
+  applicantLastName: values.person.lastName,
+  applicantEmail: values.person.email,
+  applicantPhone: values.person.phone,
+  applicantIdNumber: values.person.idNumber,
+  applicantDateOfBirth: values.person.birthDate,
+  applicantAddress: values.person.address,
+  projectName: values.project.name,
+  projectIndustry: values.project.industry,
+  projectRegion: values.project.region,
+  projectMunicipality: values.project.municipality,
+  projectVillage: values.project.village,
+  ApplicantIdentificationCode: values.project.entityIdentificationCode,
+  ApplicantBday: values.project.entityBday,
+  projectBudjetFromStartupGeorgia: values.budjet.budjectFromStartupGeorgia,
+  projectBudjetFromApplicant: values.budjet.authorBudjet,
+  projectExistingBudjet: values.budjet.existentBudjet,
+  projectTotalBudjet: values.budjet.totalBudjet,
+  projectBudjetFromUsaid: values.budjet.budjectFromUsaid,
+  projectDescription: values.descriptions.projectDesc,
+  projectInnovationElement: values.descriptions.inovationDesc,
+  files: downloadURLs,
+  members: values.members,
+            }
+console.log(formData)
+
+            return baseAPI.post("/send/application", formData)
+  .then((res) => {
+    if(res.status===201){
+       console.log(res)
+      resetForm();
+      setCurrentPage(0);
+      setMember({
+        name: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        idNumber: "",
+        birthDate: "",
+        address: "",
+      });
+      alert("application sent");
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    alert("error");
+  });
+       
           });
         }}
       >
         {(obj) => {
-          const { errors } = obj;
-          console.log(errors);
           return (
             <article className="w-full  bg-white xl:w-4/5 h-auto p-2 shadow-sm  flex gap-2 self-center rounded-sm">
               <FormValid
