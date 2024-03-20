@@ -64,7 +64,7 @@ const SingleNews = () => {
           </p>
 
           <div className="w-full p-4 gap-5 border-b ">
-            <p>{news.data.desc}</p>
+            <p>{news.data.description}</p>
           </div>
 
           {news.data.desc2 && (
@@ -74,6 +74,16 @@ const SingleNews = () => {
           )}
 
           {news.data.desc3 && (
+            <div className="w-full p-4 gap-5 border-b ">
+              <p>{news.data.desc3}</p>
+            </div>
+          )}
+          {news.data.desc4 && (
+            <div className="w-full p-4 gap-5 border-b ">
+              <p>{news.data.desc3}</p>
+            </div>
+          )}
+          {news.data.desc5 && (
             <div className="w-full p-4 gap-5 border-b ">
               <p>{news.data.desc3}</p>
             </div>

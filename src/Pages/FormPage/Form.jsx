@@ -1,4 +1,3 @@
-
 import FormPgFour from "./Components/FormPGFour";
 import FormPgOne from "./Components/FormPgOne";
 import FormPgThree from "./Components/FormPgThree";
@@ -8,24 +7,39 @@ import FormPgFive from "./Components/FormPg5";
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import { validations } from "./services/validations";
+import { storage } from "../../utils/firebsa";
 import { baseAPI } from "../../services/baseApi";
-import { ref, uploadBytes } from "firebase/storage"; // Removed getDownloadURL import
-import { storage } from "./services/firebase";
+import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import DownloadIcon from "@mui/icons-material/Download";
+import { toast } from "react-toastify";
 
 const handleImageUpload = (files) => {
   const uploadPromises = Object.entries(files).map((file) => {
     const fileRef = ref(storage, `applications/${file.name + v4()}`);
     return uploadBytes(fileRef, file).then(() => {
-      const downloadURL = `https://your-bucket-name.storage.googleapis.com/applications/${file.name + v4()}`;
+      const downloadURL = `https://your-bucket-name.storage.googleapis.com/applications/${
+        file.name + v4()
+      }`;
       return downloadURL;
     });
   });
   return Promise.all(uploadPromises);
 };
 
-// Your initial form values
+function generateUniqueNumber(minDigits, maxDigits) {
+  const length =
+    Math.floor(Math.random() * (maxDigits - minDigits + 1)) + minDigits;
+  let number = "";
+
+  for (let i = 0; i < length; i++) {
+    const digit = Math.floor(Math.random() * 10); // Generate a random digit from 0 to 9
+    number += digit;
+  }
+
+  return number;
+}
+
 const initialValues = {
   person: {
     name: "",
@@ -55,7 +69,7 @@ const initialValues = {
   descriptions: {
     projectDesc: "",
     inovationDesc: "",
-    files: [], 
+    files: [],
   },
   members: [],
 };
@@ -63,8 +77,10 @@ const initialValues = {
 const CommonForm = ({ isUsaid }) => {
   const [isNew, setIsNew] = useState(false);
   const [isGroup, setIsGroup] = useState(false);
+  const [gender, setGender] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const [member, setMember] = useState({
     name: "",
     lastname: "",
@@ -76,14 +92,13 @@ const CommonForm = ({ isUsaid }) => {
     linkedin: "",
   });
 
-  // Define validation schema
   const validationSchema = validations(isNew, isUsaid);
 
   const nextPage = () => setCurrentPage(currentPage + 1);
   const prevPage = () => setCurrentPage(currentPage - 1);
 
   const pages = [
-    <FormPgOne nextPage={nextPage} />,
+    <FormPgOne nextPage={nextPage} gender={gender} setGender={setGender} />,
     <FormPgTwo
       nextPage={nextPage}
       prevPage={prevPage}
@@ -96,14 +111,16 @@ const CommonForm = ({ isUsaid }) => {
       nextPage={nextPage}
       isGroup={isGroup}
       setIsGroup={setIsGroup}
+      isLoading={isLoading}
     />,
     <FormPgFive
       prevPage={prevPage}
-      setMember={setMember} // Changed to setMember
+      setMember={setMember}
       isGroup={isGroup}
       member={member}
       errors={errors}
       setErrors={setErrors}
+      isLoading={isLoading}
     />,
   ];
 
@@ -125,7 +142,7 @@ const CommonForm = ({ isUsaid }) => {
         initialValues={initialValues} // Use the defined initial values
         validationSchema={validationSchema}
         onSubmit={(values, { resetForm }) => {
-       
+          setIsLoading(true);
           let fileUploadPromise;
           if (values.descriptions.files) {
             fileUploadPromise = handleImageUpload(values.descriptions.files);
@@ -133,59 +150,66 @@ const CommonForm = ({ isUsaid }) => {
             fileUploadPromise = Promise.resolve(null); // Resolve immediately with null if no file
           }
           fileUploadPromise.then((downloadURLs) => {
-            const formData={
+            const formData = {
               isNew: isNew,
-  isUsaid: isUsaid,
-  hasAgreed: true,
-  applicantName: values.person.name,
-  applicantLastName: values.person.lastName,
-  applicantEmail: values.person.email,
-  applicantPhone: values.person.phone,
-  applicantIdNumber: values.person.idNumber,
-  applicantDateOfBirth: values.person.birthDate,
-  applicantAddress: values.person.address,
-  projectName: values.project.name,
-  projectIndustry: values.project.industry,
-  projectRegion: values.project.region,
-  projectMunicipality: values.project.municipality,
-  projectVillage: values.project.village,
-  ApplicantIdentificationCode: values.project.entityIdentificationCode,
-  ApplicantBday: values.project.entityBday,
-  projectBudjetFromStartupGeorgia: values.budjet.budjectFromStartupGeorgia,
-  projectBudjetFromApplicant: values.budjet.authorBudjet,
-  projectExistingBudjet: values.budjet.existentBudjet,
-  projectTotalBudjet: values.budjet.totalBudjet,
-  projectBudjetFromUsaid: values.budjet.budjectFromUsaid,
-  projectDescription: values.descriptions.projectDesc,
-  projectInnovationElement: values.descriptions.inovationDesc,
-  files: downloadURLs,
-  members: values.members,
-            }
-console.log(formData)
+              isUsaid: isUsaid,
+              hasAgreed: true,
+              applicantGender: gender,
+              applicationNumber: generateUniqueNumber(5, 9),
+              applicantName: values.person.name,
+              applicantLastName: values.person.lastName,
+              applicantEmail: values.person.email,
+              applicantPhone: values.person.phone,
+              applicantIdNumber: values.person.idNumber,
+              applicantDateOfBirth: values.person.birthDate,
+              applicantAddress: values.person.address,
+              projectName: values.project.name,
+              projectIndustry: values.project.industry,
+              projectRegion: values.project.region,
+              projectMunicipality: values.project.municipality,
+              projectVillage: values.project.village,
+              ApplicantIdentificationCode:
+                values.project.entityIdentificationCode,
+              ApplicantBday: values.project.entityBday,
+              projectBudjetFromStartupGeorgia:
+                values.budjet.budjectFromStartupGeorgia,
+              projectBudjetFromApplicant: values.budjet.authorBudjet,
+              projectExistingBudjet: values.budjet.existentBudjet,
+              projectTotalBudjet: values.budjet.totalBudjet,
+              projectBudjetFromUsaid: values.budjet.budjectFromUsaid,
+              projectDescription: values.descriptions.projectDesc,
+              projectInnovationElement: values.descriptions.inovationDesc,
+              files: downloadURLs,
+              members: values.members,
+            };
+            console.log(formData);
 
-            return baseAPI.post("/send/application", formData)
-  .then((res) => {
-    if(res.status===201){
-       console.log(res)
-      resetForm();
-      setCurrentPage(0);
-      setMember({
-        name: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        idNumber: "",
-        birthDate: "",
-        address: "",
-      });
-      alert("application sent");
-    }
-  })
-  .catch(err => {
-    console.log(err);
-    alert("error");
-  });
-       
+            return baseAPI
+              .post("/send/application", formData)
+              .then((res) => {
+                if (res.status === 201) {
+                  resetForm();
+                  setCurrentPage(0);
+                  setMember({
+                    name: "",
+                    lastName: "",
+                    email: "",
+                    phone: "",
+                    idNumber: "",
+                    birthDate: "",
+                    address: "",
+                  });
+                  toast.success("განცხადება წარმატებით გაიგზავნა");;
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                toast.error(" დაფიქსირდა შეცდომა მოგვიანებით სცადეთ ან დაგვეკონტაქტეთ");
+              })
+              .finally(() => {
+                setIsLoading(false);
+           
+              });
           });
         }}
       >

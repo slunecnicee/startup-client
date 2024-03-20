@@ -13,10 +13,10 @@ const WinnersPage = () => {
 
   useEffect(() => {
     baseAPI
-      .get("/project/allprojects")
+      .get("/winners/allwinners")
       .then((res) => {
         const sortedData = res.data.sort(
-          (a, b) => new Date(b.Date) - new Date(a.Date)
+          (a, b) => new Date(b.date) - new Date(a.date)
         );
         setWinners({
           loading: false,
@@ -49,17 +49,17 @@ const WinnersPage = () => {
     <section className="w-full grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-10  mt-5 xl:pl-14 custom-padding2">
       {winners.data.map((item) => (
         <article
-          onClick={() => handleNavigate(item._id)}
+          onClick={() => handleNavigate(item.id)}
           className="flex-1 w-full xl:w-11/12 h-72 relative rounded-xl cursor-pointer"
-          key={item._id}
+          key={item.id}
         >
           <img
             className="w-full h-full rounded-xl"
             src={item.img}
-            alt={`${item.projectName}_img`}
+            alt={`${item.winnerName}_img`}
           />
           <div className="absolute bottom-0 p-3 h-1/3 flex justify-center items-center opacity-90 w-full z-20 bg-headerColor text-white font-bold text-xl rounded-b-xl">
-            <h2>{item.projectName}</h2>
+            <h2>{item.winnerName}</h2>
           </div>
         </article>
       ))}

@@ -28,7 +28,7 @@ const VideoCont = () => {
   return (
     <div
       area-aria-label="startup-georgia-official-video"
-      className={`w-full p-2 flex flex-col h-screen justify-start items-center transition-all duration-300 ease-in-out  ${
+      className={`w-full p-2 flex flex-col h-fit justify-start items-center transition-all duration-300 ease-in-out  ${
         scrolled ? "bg-neutral-100" : "bg-neutral-100 lg:bg-headerColor"
       } `}
     >
@@ -39,12 +39,12 @@ const VideoCont = () => {
         </video>
       </div>
 
-      <div className="w-full h-fit p-5 flex flex-col  md:flex-row items-center justify-center gap-3 lg:gap-24 mr-10 mt-10">
+      <div className="w-full h-fit p-5 flex flex-col  md:flex-row items-center justify-center gap-3 lg:gap-24 mr-10 mt-5">
         <CommonBtn
           scrolled={scrolled}
           text=" შეავსე განაცხადი"
           icon={
-            <BorderColorIcon sx={{ color: scrolled ? "#4682b4" : "white" }} />
+            <BorderColorIcon sx={{ color: scrolled ? "#4682b4" : "#22435e" }} />
           }
           handleNavigate={() => navigate("/application")}
         />
@@ -52,13 +52,13 @@ const VideoCont = () => {
           scrolled={scrolled}
           text="მოითხოვე ზარი"
           icon={
-            <PhoneCallbackIcon sx={{ color: scrolled ? "#4682b4" : "white" }} />
+            <PhoneCallbackIcon sx={{ color: scrolled ? "#4682b4" : "#22435e" }} />
           }
         />
         <CommonBtn
           scrolled={scrolled}
           text="მოგვწერე მეილი "
-          icon={<ChatIcon sx={{ color: scrolled ? "#4682b4" : "white" }} />}
+          icon={<ChatIcon sx={{ color: scrolled ? "#4682b4" : "#22435e" }} />}
           handleNavigate={() => navigate("/contact")}
         />
       </div>

@@ -51,9 +51,9 @@ const NewsPage = () => {
       <section className="w-full grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-10  mt-5 xl:pl-14 custom-padding2">
         {news.data.map((item) => (
           <article
-            onClick={() => handleNavigate(item._id)}
+            onClick={() => handleNavigate(item.id)}
             className="flex-1 w-full xl:w-11/12 min-h-72   rounded-xl cursor-pointer"
-            key={item._id}
+            key={item.id}
           >
             <img
               className="w-full h-52 rounded-xl"

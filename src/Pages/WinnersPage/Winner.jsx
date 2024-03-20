@@ -14,7 +14,7 @@ const Winner = () => {
   });
 
   useEffect(() => {
-    baseAPI.get(`/project/${id}`).then((res) => {
+    baseAPI.get(`/winners/${id}`).then((res) => {
       setProject({
         loading: false,
         data: res.data,
@@ -38,17 +38,17 @@ const Winner = () => {
           <img
             className="w-full h-full rounded-2xl "
             src={project.data.img}
-            alt={`${project.data.projectName}_img`}
+            alt={`${project.data.winnerName}_img`}
           />
         </div>
 
         <div className="lg:w-8/12 h-fit w-full ">
           <div className="text-2xl border-b p-2 font-semibold pl-4  flex items-center justify-between ">
-            <h2 className="  text-textColor">{project.data.projectName}</h2>
+            <h2 className="  text-textColor">{project.data.winnerName}</h2>
 
             <p className=" font-bold text-sm lg:text-lg pr-4 flex gap-2 items-center">
               <DateRangeIcon sx={{ color: "red" }} />
-              {project.data.Date.slice(0, 10)}
+              {project.data.date.slice(0, 10)}
             </p>
           </div>
 

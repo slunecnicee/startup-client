@@ -3,9 +3,11 @@ import CommonInput from "../../../Components/CommonInput";
 import { useEffect, useState } from "react";
 import { useFormikContext } from "formik";
 
-const FormPgOne = ({ nextPage }) => {
+const FormPgOne = ({ nextPage,gender, setGender }) => {
   const [isValid, setIsValid] = useState(true);
   const { errors, values } = useFormikContext();
+
+
 
   useEffect(() => {
     if (
@@ -58,7 +60,7 @@ const FormPgOne = ({ nextPage }) => {
         />
       </div>
 
-      <div className="w-full mb-2 mt-5 flex-col xl:flex-row xl:mt-5  flex xl:gap-3 gap-6">
+      <div className="w-full border-b pb-4 mb-2 mt-5 flex-col xl:flex-row xl:mt-5  flex xl:gap-3 gap-6">
      
         <CommonInput
           name="person.address"
@@ -74,6 +76,52 @@ const FormPgOne = ({ nextPage }) => {
           htmlfor={"birthDate"}
           width={true}
         />
+      </div>
+
+
+      <div className="w-full flex gap-5 border-b border-gray-300 pb-2 ">
+        <h3 className="mb-2 mt-2 text-sm font-bold">
+          აირჩიეთ სქესი :
+        </h3>
+        <div className="flex gap-4 items-center   p-2">
+          <div className="flex gap-2 items-center">
+            <input
+              id="gender"
+              type="radio"
+              value={'კაცი'}
+              name="gender"
+              onChange={() => setGender('კაცი')}
+              checked={gender === 'კაცი'} 
+              className="form-radio h-5 w-5 text-gray-600"
+            />
+            <label htmlFor="gender">კაცი</label>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <input
+              id="gender"
+              type="radio"
+              name="gender"
+              value={'ქალი'}
+              onChange={() => setGender('ქალი')}
+              checked={gender === 'ქალი'} 
+              className="form-radio h-5 w-5 text-gray-600"
+            />
+            <label htmlFor="gender">ქალი</label>
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              id="gender"
+              type="radio"
+              name="gender"
+              value={'არ მსურს მითითება'}
+              onChange={() => setGender('არ მსურს მითითება')}
+              checked={gender === 'არ მსურს მითითება'} 
+              className="form-radio h-5 w-5 text-gray-600"
+            />
+            <label htmlFor="gender">არ მსურს მითითება</label>
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-col gap-2 w-full border-b-2 border-gray-300 pb-10 ">

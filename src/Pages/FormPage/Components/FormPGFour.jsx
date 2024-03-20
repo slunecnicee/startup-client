@@ -3,7 +3,7 @@ import CommonTextArea from "../../../Components/CommonTextArea";
 import CommonFormBtn from "../../../Components/CommonFormBtn";
 import { useFormikContext } from "formik";
 
-const FormPgFour = ({ nextPage, prevPage, isGroup, setIsGroup }) => {
+const FormPgFour = ({ nextPage, prevPage, isGroup, setIsGroup,isLoading }) => {
   const { errors, setFieldValue } = useFormikContext();
 
   const [isValid, setIsValid] = useState(true);
@@ -95,7 +95,7 @@ const FormPgFour = ({ nextPage, prevPage, isGroup, setIsGroup }) => {
             handleClick={nextPage}
           />
         ) : (
-          <CommonFormBtn text="გაგზავნა" type="submit" disabled={!isValid} />
+          <CommonFormBtn text={isLoading ? "იგზავნება..." : "გაგზავნა"} type="submit" isLoading={isLoading} disabled={!isValid} />
         )}
       </div>
     </div>

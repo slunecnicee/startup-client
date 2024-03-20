@@ -13,6 +13,7 @@ const FormPgFive = ({
   setErrors,
   member,
   setMember,
+  isLoading,
 }) => {
   const { values, setFieldValue } = useFormikContext();
   const members = values.members;
@@ -278,7 +279,7 @@ const FormPgFive = ({
               disabled={false}
             />
 
-            <CommonFormBtn text="გაგზავნა" type="submit" disabled={!isValid} />
+            <CommonFormBtn text={isLoading ? "იგზავნება..." : "გაგზავნა"} type="submit" disabled={!isValid} />
           </div>
         </div>
       ) : null}

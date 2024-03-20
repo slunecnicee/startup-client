@@ -12,8 +12,8 @@ import WinnersPage from "./Pages/WinnersPage/WinnersPg";
 import NewsPage from "./Pages/NewsPage/NewsPg";
 import Winner from "./Pages/WinnersPage/Winner";
 import SingleNews from "./Pages/NewsPage/singleNews";
-import ContactPage from "./Pages/ContactPage/Contact";
 import NotFoundPg from "./Pages/NotFoundPg/NotFoundPg";
+import ContactPage from "./Pages/Contact/ContactPage";
 
 function App() {
   return (
